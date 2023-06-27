@@ -1,115 +1,177 @@
 import Library from "../models/library.model.js";
-import User from "../models/user.model.js";
 import Book from "../models/book.model.js";
 import { db } from "../config/db.config.js";
 const Op = db.Sequelize.Op;
 
-export const getAllLib = async(userId) => {
-    const libraries = await Library.findAll({
-        paranoid: true,
-        where: {
-            userId: userId
-        },
-        attributes: ["id", "name", "location", "phone"],
-        order: [
-            ["id", "DESC"]
-        ],
-        include: [{
-            model: Book,
-            attributes: ["isbn", "title", "author", "year"]
-        }, {
-            model: User,
-            attributes: ["name", "lastname", "username"]
-        }]
+export const getAllLib = async() => {
+    try {
+        const libraries = await Library.findAll({
+            paranoid: true,
+            attributes: ["id", "name", "location", "phone"],
+            order: [
+                ["id", "DESC"]
+            ],
+            include: [{
+                model: Book,
+                attributes: ["isbn", "title", "author", "year"]
+            }]
 
-    });
+        });
 
-    return libraries;
+        return {
+            statusCode: 200,
+            libraries
+        }
+    } catch (error) {
+        console.error('No se pudo obtener todas las bibliotecas: ', error);
+        return { statusCode: 500, message: 'No se pudo obtener todas las bibliotecas' };
+    }
 }
 
-export const getAllDeletedLib = async(userId) => {
-    const libraries = await Library.findAll({
-        paranoid: false,
-        where: {
-            deletedAt: {
-                [Op.ne]: null
+export const getAllDeletedLib = async() => {
+    try {
+        const libraries = await Library.findAll({
+            paranoid: false,
+            where: {
+                deletedAt: {
+                    [Op.ne]: null
+                }
             },
-            userId: userId
-        },
-        attributes: ["id", "name", "location", "phone", "deletedAt"],
-        order: [
-            ["id", "DESC"]
-        ],
-        include: {
-            model: Book,
-            attributes: ["isbn", "title", "author", "year"]
-        },
-        include: {
-            model: User,
-            attributes: ["name", "lastname", "username"]
-        },
-    })
-    return libraries;
-}
-
-export const getByIdLib = async(id, userId) => {
-    const library = await Library.findOne({
-        paranoid: true,
-        where: {
-            id: id,
-            userId: userId
-        },
-        attributes: ["id", "name", "location", "phone"],
-        include: {
-            model: Book,
-            attributes: ["isbn", "title", "author", "year"]
-        },
-        include: {
-            model: User,
-            attributes: ["name", "lastname", "username"]
+            attributes: ["id", "name", "location", "phone", "deletedAt"],
+            order: [
+                ["id", "DESC"]
+            ],
+            include: {
+                model: Book,
+                attributes: ["isbn", "title", "author", "year"]
+            }
+        })
+        return {
+            statusCode: 200,
+            libraries
         }
-    });
-
-    return library;
-}
-
-export const createLib = async(library) => {
-    const newLibrary = await Library.create(library);
-    return newLibrary;
-}
-
-export const updateLib = async(id, library) => {
-    const registered = await Library.findByPk(id);
-    if (!registered) {
-        return false;
+    } catch (error) {
+        console.error('No se pudo obtener todas las bibliotecas: ', error);
+        return { statusCode: 500, message: 'No se pudo obtener todas las bibliotecas' };
     }
-    await Library.update(library, {
-        where: {
-            id: id
+}
+
+export const getByIdLib = async(params) => {
+    const { id } = params;
+    try {
+        const library = await Library.findOne({
+            paranoid: true,
+            where: {
+                id: id
+            },
+            attributes: ["id", "name", "location", "phone"],
+            include: {
+                model: Book,
+                attributes: ["isbn", "title", "author", "year"]
+            }
+        });
+
+        return { statusCode: 200, library };
+    } catch (error) {
+        console.error('No se pudo obtener la biblioteca: ', error);
+        return { statusCode: 500, message: 'No se pudo obtener la biblioteca' };
+    }
+}
+
+export const createLib = async(body) => {
+    const { name, location, phone } = body;
+    try {
+        const library = await Library.create({
+            name,
+            location,
+            phone
+        });
+        if (library) {
+            return { statusCode: 201, message: "Se creo con éxito la biblioteca!", data: library };
+        } else {
+            return { statusCode: 404, message: 'No se pudo crear la biblioteca' };
         }
-    });
 
-    return true;
+    } catch (error) {
+        console.error('Hubo un error al crear la biblioteca: ', error);
+        return { statusCode: 500, message: 'Hubo un error al crear la biblioteca' };
+    }
 }
 
-export const removeLib = async(id) => {
-    const registered = await Library.findByPk(id);
-    if (!registered) {
-        return false;
-    }
-    await Library.destroy({
-        where: {
-            id: id
+export const updateLib = async(params, body) => {
+    const { id } = params;
+    const { name, location, phone } = body;
+    console.log(id);
+    try {
+        const registered = await Library.findByPk(id);
+        if (!registered) {
+            return { statusCode: 404, message: 'No se ha encontrado una libreria con el id ingresado' };
         }
-    });
-    return true;
+
+        const library = await Library.update({
+            name,
+            location,
+            phone
+        }, {
+            where: {
+                id: id
+            }
+        })
+
+        if (library) {
+            return { statusCode: 200, message: "Se actualizo con exito la biblioteca" }
+        } else {
+            return { statusCode: 404, message: 'No se pudo actualizar la biblioteca' };
+        }
+    } catch (error) {
+        console.error('Hubo un error al actualizar la biblioteca: ', error);
+        return { statusCode: 500, message: 'Hubo un error al actualizar la biblioteca' };
+    }
 }
 
-export const restoreLib = async(id) => {
-    const registered = await Library.findByPk(id, { paranoid: false });
-    if (!registered) {
-        return false;
+export const removeLib = async(params) => {
+    const { id } = params;
+    try {
+        const registered = await Library.findByPk(id);
+        if (!registered) {
+            return { statusCode: 404, message: 'No se ha encontrado una libreria con el id ingresado' };
+        }
+
+        const libraryDestroy = await Library.destroy({
+            where: {
+                id
+            }
+        });
+        if (libraryDestroy) {
+            return { statusCode: 200, message: "Se elimino con éxito la biblioteca" }
+        } else {
+            return { statusCode: 404, message: 'No se pudo eliminar la biblioteca' };
+        }
+    } catch (error) {
+        console.error('Hubo un error al eliminar la biblioteca: ', error);
+        return { statusCode: 500, message: 'Hubo un error al eliminar la biblioteca' };
     }
-    await Library.restore({ where: { id: id } });
-    return true;
+}
+
+export const restoreLib = async(params) => {
+    const { id } = params;
+    try {
+        const registered = await Library.findByPk(id, { paranoid: false });
+        if (!registered) {
+            return { statusCode: 404, message: 'No se ha encontrado una libreria con el id ingresado' };
+        }
+        const libraryRestore = await Library.restore({
+            where: {
+                id: id
+            }
+        });
+        if (libraryRestore) {
+            return { statusCode: 200, message: "Se restauró con éxito la biblioteca" }
+        } else {
+            return { statusCode: 404, message: 'No se pudo restaurar la biblioteca' };
+        }
+    } catch (error) {
+        console.error('Hubo un error al restaurar la biblioteca: ', error);
+        return { statusCode: 500, message: 'Hubo un error al restaurar la biblioteca' };
+    }
 }

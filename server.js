@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
-import { db, testDbConnection } from "./app/config/db.config.js";
+import { db } from "./app/config/db.config.js";
 import { config } from "dotenv";
 config();
 import colors from "colors";
@@ -15,17 +15,15 @@ const tz = process.env.TZ || 'America/Argentina/Cordoba';
 const app = express();
 const entorno = process.env.NODE_ENV || 'dev';
 
-var corsOptions = {
+let corsOptions = {
     origin: "*"
 };
 
 app.use(cors(corsOptions));
 
 app.use(morgan(entorno));
-// parse requests of content-type - application/json
-app.use(bodyParser.json({ limit: '50mb', extended: true }));
 
-// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 import './app/models/library.model.js';
@@ -35,7 +33,7 @@ import './app/models/relations.model.js';
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Bienvenido a la api de libros." });
+    res.json({ message: "Bienvenido a la api de libros. Hecha por Fabrizio Ferroni." });
 });
 
 // Import routes
@@ -83,15 +81,12 @@ const syncAndCreateUser = async() => {
 };
 const init = async() => {
     try {
-        await testDbConnection();
         await db.sync({ force: false });
         syncAndCreateUser();
-        app.listen(server_port, () => console.log(`The server is running on: ${server_port} without problems`.green));
+        app.listen(server_port, () => console.log(`El servidor se ejecuta en el puerto: ${server_port} sin problemas`.green));
     } catch (error) {
         console.error(`Error trying to connect to the server: ${error}`.bgRed.white)
     }
 }
 
 init();
-
-// Verifica si el usuario ya fue creado previamente

@@ -1,5 +1,10 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import Jwt from "jsonwebtoken";
+import { config } from "dotenv";
+config();
+
+const secret = process.env.JWT_SECRET || "";
 export const registerUser = async(body) => {
     const { name, lastname, username, password } = body;
 
@@ -42,6 +47,7 @@ export const loginUser = async(userBody) => {
 
         let token = Jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: '1h' });
 
+        console.log(secret);
         return {
             statusCode: 200,
             id: user.id,
@@ -51,7 +57,8 @@ export const loginUser = async(userBody) => {
             accessToken: token
         };
     } catch (err) {
-        return { message: err.message }
+        console.error('No se pudo iniciar sesion:', err);
+        return { statusCode: 500, message: 'No se pudo iniciar sesion' };
     }
 }
 

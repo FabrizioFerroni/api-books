@@ -14,11 +14,13 @@ export const getAll = async(userId) => {
         order: [
             ["id", "DESC"]
         ],
-        include: {
-
+        include: [{
+            model: Library,
+            attributes: ["name", "location", "phone"]
+        }, {
             model: User,
             attributes: ["name", "lastname", "username"]
-        }
+        }]
 
     });
 

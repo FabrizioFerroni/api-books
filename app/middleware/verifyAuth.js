@@ -7,7 +7,7 @@ const secret = process.env.JWT_SECRET || "";
 export function validateLogin(req, res, next) {
     const { authorization } = req.headers;
 
-    if (!authorization) return res.status(403).send({ message: `No has enviado un token.` });
+    if (!authorization) return res.status(403).send({ message: `No has enviado un token. Por favor envia el token.` });
 
     let token = authorization.replace(/['"]+/g, '');
 

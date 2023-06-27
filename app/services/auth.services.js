@@ -66,10 +66,6 @@ export const refreshTokenUser = async(body) => {
         const decoded = Jwt.verify(token, secret);
         const userId = decoded.id;
 
-        if (token === null) {
-            return { statusCode: 400, message: 'El token no puede estar en blanco' };;
-        }
-
         const user = await User.findOne({
             where: {
                 id: userId

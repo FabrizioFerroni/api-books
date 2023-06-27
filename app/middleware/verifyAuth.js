@@ -34,5 +34,6 @@ export function validateLogin(req, res, next) {
         }
         req.userId = decoded.id;
         req.username = decoded.username;
+        next();
     });
 };

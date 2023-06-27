@@ -1,17 +1,31 @@
-import { registerUser } from "../services/auth.services.js";
-import bcrypt from "bcryptjs";
+import { loginUser, refreshTokenUser, registerUser } from "../services/auth.services.js";
+
 export async function registerUserCont(req, res) {
-    const { name, lastname, username, password } = req.body;
     try {
-        const data = {
-            name: name,
-            lastname: lastname,
-            username: username,
-            password: bcrypt.hashSync(password, 8)
-        }
-        const user = await registerUser(data);
-        res.status(201).json({ message: 'Se creo con éxito el usuario', usuario: user });
+        const user = await registerUser(req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
+}
+
+export async function login(req, res) {
+    try {
+        const user = await loginUser(req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
     } catch (error) {
-        res.status(400).json(error);
+        res.status(500).json(error.message)
+    }
+}
+
+export async function refreshToken(req, res) {
+    try {
+        const user = await refreshTokenUser(req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
     }
 }

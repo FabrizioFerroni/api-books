@@ -46,8 +46,6 @@ export const loginUser = async(userBody) => {
         }
 
         let token = Jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: '1h' });
-
-        console.log(secret);
         return {
             statusCode: 200,
             id: user.id,

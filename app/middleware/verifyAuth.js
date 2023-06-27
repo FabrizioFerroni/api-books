@@ -37,3 +37,22 @@ export function validateLogin(req, res, next) {
         next();
     });
 };
+
+export function checkDuplicateUsername(req, res, next) {
+    const { username } = req.body;
+    // username
+    User.findOne({
+        where: {
+            username: username
+        }
+    }).then(user => {
+        if (user) {
+            res.status(400).send({
+                message: "¡Upss... hubo un error 😣! ¡El nombre de usuario ya está en uso!"
+            });
+            return;
+        }
+
+        next();
+    });
+};

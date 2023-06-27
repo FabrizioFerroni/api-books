@@ -13,7 +13,7 @@ router.get("/book/:id", getByIdCont);
 // Rutas que necesitan validaciones
 router.post("/book", [validateBook, checkDuplicateISBN, validateLogin], createCont);
 router.post("/book/:id/restore", validateLogin, restoreCont);
-router.put("/book/:id", [validateBook, checkDuplicateISBN, validateLogin], updateCont);
+router.put("/book/:id", [validateBook, validateLogin], updateCont);
 router.delete("/book/:id", validateLogin, removeCont);
 
 export default router;

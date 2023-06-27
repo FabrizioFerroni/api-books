@@ -23,8 +23,8 @@ export const getAllLib = async() => {
             libraries
         }
     } catch (error) {
-        console.error('No se pudo obtener todas las bibliotecas: ', error);
-        return { statusCode: 500, message: 'No se pudo obtener todas las bibliotecas' };
+        console.error('Hubo un error al obtener todas las bibliotecas: ', error);
+        return { statusCode: 500, message: 'Hubo un error al obtener todas las bibliotecas' };
     }
 }
 
@@ -101,7 +101,6 @@ export const createLib = async(body) => {
 export const updateLib = async(params, body) => {
     const { id } = params;
     const { name, location, phone } = body;
-    console.log(id);
     try {
         const registered = await Library.findByPk(id);
         if (!registered) {

@@ -1,10 +1,20 @@
-import Book from '../models/book.model.js'
+import Book from '../models/book.model.js';
+import { db } from "../config/db.config.js";
+const Op = db.Sequelize.Op;
 export function checkDuplicateISBN(req, res, next) {
     const { isbn } = req.body;
-    // username
+    const ISBNnormalized = isbn.replace(/-/g, '');
+    const formattedISBN = `${ISBNnormalized}`;
+
     Book.findOne({
         where: {
-            isbn: isbn
+            [Op.or]: [
+                { isbn: isbn },
+                db.where(
+                    db.fn('replace', db.col('isbn'), '-', ''),
+                    formattedISBN
+                )
+            ]
         }
     }).then(book => {
         if (book) {

@@ -60,7 +60,7 @@ Ir al navegador/postman/frontend y pegar la siguiente ruta
 ```bash
   http://localhost:8080/
 ```
-*** El puerto se setea en el archivo `.env` si no por defecto es el 8080 ***
+***El puerto se setea en el archivo `.env` si no por defecto es el 8080***
 
 ## Mapa de la aplicación
 

@@ -122,13 +122,13 @@ Se pasa a detallar cada archivo para que fue creado y que hace.
     * ***restoreCont***: intermediario entre la ruta y el service para restaurar un libro por su id que fue borrado donde se le envia el req.params al service.
 * ***app/controllers/library.controller.js***
    * Archivo donde se importa el service de library y se crean las funciones de:
-   * ***getAllContLib***: donde es una funcion que se comunica con el service para obtener todos los registros de las bibliotecas.
-    * ***getAllDelContLib***: intermediario entre la ruta y el service para obtener todos los registros de las bibliotecas que fueron borradas.
-    * ***getByIdContLib***: intermediario entre la ruta y el service para obtener un registro de una biblioteca buscada por su id.
-    * ***createContLib***: intermediario entre la ruta y el service para crear una nueva biblioteca donde se le envia el req.body al service
-    * ***updateContLib***: intermediario entre la ruta y el service para actualizar una biblioteca por su id donde se le envia el req.params y req.body al service
-    * ***removeContLib***: intermediario entre la ruta y el service para borrar una biblioteca por su id donde se le envia el req.params al service
-    * ***restoreContLib***: intermediario entre la ruta y el service para restaurar una biblioteca por su id que fue borrado donde se le envia el req.params al service.
+     * ***getAllContLib***: donde es una funcion que se comunica con el service para obtener todos los registros de las bibliotecas.
+     * ***getAllDelContLib***: intermediario entre la ruta y el service para obtener todos los registros de las bibliotecas que fueron borradas.
+     * ***getByIdContLib***: intermediario entre la ruta y el service para obtener un registro de una biblioteca buscada por su id.
+     * ***createContLib***: intermediario entre la ruta y el service para crear una nueva biblioteca donde se le envia el req.body al service
+     * ***updateContLib***: intermediario entre la ruta y el service para actualizar una biblioteca por su id donde se le envia el req.params y req.body al service
+     * ***removeContLib***: intermediario entre la ruta y el service para borrar una biblioteca por su id donde se le envia el req.params al service
+     * ***restoreContLib***: intermediario entre la ruta y el service para restaurar una biblioteca por su id que fue borrado donde se le envia el req.params al service.
 * ***app/controllers/user.controller.js***
    * Archivo donde se importa el service de user y se crean las funciones de:
    * ***getAllUsersCont***: donde es una funcion que se comunica con el service para obtener todos los registros de los usuarios.
@@ -238,7 +238,7 @@ Se le requiere pasar estos parametros por body:
 }
 ```
 
-Ademas por la cabezera header de `Autorization` se le tiene que pasar el token que obtuvieron al iniciar sesion.
+Ademas por la cabezera header de `Authorization` se le tiene que pasar el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
@@ -263,7 +263,7 @@ Se le requiere pasar estos parametros por body:
 }
 ```
 
-Ademas por la cabezera header de `Autorization` se le tiene que pasar el token que obtuvieron al iniciar sesion.
+Ademas por la cabezera header de `Authorization` se le tiene que pasar el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
@@ -278,7 +278,7 @@ Ademas por la cabezera header de `Autorization` se le tiene que pasar el token q
 ```http
 DELETE /api/library/:id
 ```
-Se le tiene que pasar por la cabezera header de `Autorization` el token que obtuvieron al iniciar sesion.
+Se le tiene que pasar por la cabezera header de `Authorization` el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
@@ -290,7 +290,7 @@ Se le tiene que pasar por la cabezera header de `Autorization` el token que obtu
 POST /api/library/:id/restore
 ```
 
-Se le tiene que pasar por la cabezera header de `Autorization` el token que obtuvieron al iniciar sesion.
+Se le tiene que pasar por la cabezera header de `Authorization` el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
@@ -338,7 +338,7 @@ Se le requiere pasar estos parametros por body:
 }
 ```
 
-Ademas por la cabezera header de `Autorization` se le tiene que pasar el token que obtuvieron al iniciar sesion.
+Ademas por la cabezera header de `Authorization` se le tiene que pasar el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
@@ -367,7 +367,7 @@ Se le requiere pasar estos parametros por body:
 }
 ```
 
-Ademas por la cabezera header de `Autorization` se le tiene que pasar el token que obtuvieron al iniciar sesion.
+Ademas por la cabezera header de `Authorization` se le tiene que pasar el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
@@ -385,7 +385,7 @@ Ademas por la cabezera header de `Autorization` se le tiene que pasar el token q
 DELETE /api/book/:id
 ```
 
-Se le tiene que pasar por la cabezera header de `Autorization` el token que obtuvieron al iniciar sesion.
+Se le tiene que pasar por la cabezera header de `Authorization` el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
@@ -397,7 +397,7 @@ Se le tiene que pasar por la cabezera header de `Autorization` el token que obtu
 POST /api/book/:id/restore
 ```
 
-Se le tiene que pasar por la cabezera header de `Autorization` el token que obtuvieron al iniciar sesion.
+Se le tiene que pasar por la cabezera header de `Authorization` el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
@@ -462,7 +462,7 @@ Se le requiere pasar estos parametros por body:
 }
 ```
 
-Se le tiene que pasar por la cabezera header de `Autorization` el token que obtuvieron al iniciar sesion.
+Se le tiene que pasar por la cabezera header de `Authorization` el token que obtuvieron al iniciar sesion.
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |

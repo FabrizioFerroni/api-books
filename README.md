@@ -131,7 +131,7 @@ Se pasa a detallar cada archivo para que fue creado y que hace.
      * ***restoreContLib***: intermediario entre la ruta y el service para restaurar una biblioteca por su id que fue borrado donde se le envia el req.params al service.
 * ***app/controllers/user.controller.js***
    * Archivo donde se importa el service de user y se crean las funciones de:
-   * ***getAllUsersCont***: donde es una funcion que se comunica con el service para obtener todos los registros de los usuarios.
+     * ***getAllUsersCont***: donde es una funcion que se comunica con el service para obtener todos los registros de los usuarios.
 * ***helpers/validate.helpers.js***
   * Archivo que crea un helper para un middleware de validaciones
 * ***app/middleware/verifyAuth.js***

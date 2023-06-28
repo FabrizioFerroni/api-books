@@ -238,9 +238,9 @@ Se le requiere pasar estos parametros por body:
 
 ```json
 {
-    "name": "El librote",
+    "name": "La biblioteca",
     "location": "Av. Libertador 1460",
-    "phone": "3514563344"
+    "phone": "305-200-6124"
 }
 ```
 
@@ -248,9 +248,9 @@ Ademas por la cabezera header de `Authorization` se le tiene que pasar el token 
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
-| `name`      | `string`| body | **Requerido**. Nombre de la biblioteca. Eg: El Librote |
+| `name`      | `string`| body | **Requerido**. Nombre de la biblioteca. Eg: La biblioteca |
 | `location`      | `string` |body | **Requerido**. Dirección física de la biblioteca. Eg: Av. Libertador 1460 |
-| `phone`      | `string` |body | **Requerido**. Número de teléfono. Eg: 3514563344 |
+| `phone`      | `string` |body | **Requerido**. Número de teléfono. Eg: 305-200-6124 |
 
 
 #### Actualizar una biblioteca por su id
@@ -263,9 +263,9 @@ Se le requiere pasar estos parametros por body:
 
 ```json
 {
-    "name": "El librote",
+    "name": "La biblioteca",
     "location": "Av. Libertador 1460",
-    "phone": "3514563344"
+    "phone": "305-200-6124"
 }
 ```
 
@@ -274,9 +274,9 @@ Ademas por la cabezera header de `Authorization` se le tiene que pasar el token 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
 | `id` | `number`| parametro | **Requerido**. ID de la biblioteca a actualizar |
-| `name`      | `string`| body | **Requerido**. Nombre de la biblioteca. Eg: El Librote |
+| `name`      | `string`| body | **Requerido**. Nombre de la biblioteca. Eg: La biblioteca |
 | `location`      | `string` |body | **Requerido**. Dirección física de la biblioteca. Eg: Av. Libertador 1460 |
-| `phone`      | `string` |body | **Requerido**. Número de teléfono. Eg: 3514563344 |
+| `phone`      | `string` |body | **Requerido**. Número de teléfono. Eg: 305-200-6124 |
 
 
 #### Borrar una biblioteca por su id
@@ -472,7 +472,7 @@ Se le tiene que pasar por la cabezera header de `Authorization` el token que obt
 
 | Parametro | Tipo     | Donde? | Descripcion                       |
 | :-------- | :------- | :----- | :-------------------------------- |
-| `username`      | `string` |body | **Requerido**. Token que le habia dado el login cuando inicio sesion. Eg: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c |
+| `token`      | `string` |body | **Requerido**. Token que le habia dado el login cuando inicio sesion. Eg: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c |
 
 * ***
 
